@@ -2,12 +2,13 @@ package main
 
 /*
 #include <stdio.h>
-
-
+#include <stdlib.h>
 */
 import "C"
+import "unsafe"
 
 func main() {
-	C.puts(C.CString("Hello, World!"))
-
+	cstr := C.CString("Hello, World!")
+	defer C.free(unsafe.Pointer(cstr))
+	C.puts(cstr)
 }
